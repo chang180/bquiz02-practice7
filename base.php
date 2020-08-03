@@ -65,6 +65,9 @@ function to($url){
 
 $Total=new DB('total');
 $Admin=new DB('admin');
+$News=new DB('news');
+$Que=new DB('que');
+$Log=new DB('log');
 
 if($Total->count(['date'=>date("Y-m-d")])==0){
     $Total->save(['date'=>date("Y-m-d"),'total'=>1]);
