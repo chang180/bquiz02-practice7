@@ -32,31 +32,24 @@
 			</div>
 			<div class="hal" id="main">
 				<div>
-
 					<span style="width:78%; display:inline-block;">
 						<marquee>請民眾踴躍投稿電子報，讓電子報成為大家相暨交流、分享的園地！詳見最新文章</marquee>
 					</span>
 					<span style="width:18%; display:inline-block;">
 						<?php
-						if (empty($_SESSION['login'])) {
+						if (($_SESSION['login']) == 'admin') {
 						?>
-							<a href="index.php?do=login">會員登入</a>
+							歡迎，admin<br><a href="admin.php">管理</a>|<a href="api/logout.php">登出</a>
 						<?php } else { ?>
-							<?php
-							if (($_SESSION['login']) == 'admin') {
-							?>
-								歡迎，admin<br><a href="admin.php">管理</a>|<a href="api/logout.php">登出</a>
-							<?php } else { ?>
-								歡迎，<?= $_SESSION['login']; ?><a href="api/logout.php">登出</a>
+							歡迎，<?= $_SESSION['login']; ?><a href="api/logout.php">登出</a>
 						<?php }
-						} ?>
-
+						?>
 					</span>
 					<div class="">
 						<?php
 						$do = $_GET['do'] ?? "main";
-						$file = "front/" . $do . ".php";
-						include file_exists($file) ? $file : "front/main.php";
+						$file = "admin/" . $do . ".php";
+						include file_exists($file) ? $file : "admin/main.php";
 						?>
 					</div>
 				</div>

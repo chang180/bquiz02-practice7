@@ -54,10 +54,29 @@ class DB{
         if(isset($arg['id'])){
             foreach($arg as $k=>$v) $tmp[]="`$k`='$v'";
             $sql=sprintf("UPDATE %s SET %s WHERE `id`='%s'",$this->table,implode(",",$tmp),$arg['id']);
-        }else $sql=sprintf("INSERT INTO %s (`%S`) VALUES ('%s')",$this->table,implode("`,`",array_keys($arg)),implode("','",$arg));
+        }else $sql=sprintf("INSERT INTO %s (`%s`) VALUES ('%s')",$this->table,implode("`,`",array_keys($arg)),implode("','",$arg));
+        // echo $sql;
         return $this->pdo->exec($sql);
     }
 }
 function to($url){
     header("location:$url");
 }
+
+$Total=new DB('total');
+$Admin=new DB('admin');
+
+if($Total->count(['date'=>date("Y-m-d")])==0){
+    $Total->save(['date'=>date("Y-m-d"),'total'=>1]);
+    $_SESSION['visited']=1;
+}
+$today=$Total->find(['date'=>date("Y-m-d")]);
+
+if(empty($_SESSION['visited'])){
+    $_SESSION['visited']=1;
+    $today['total']++;
+    $Total->save($today);
+    $today=$Total->find(['date'=>date("Y-m-d")]);
+}
+
+$total=$Total->q("SELECT SUM(total) FROM total ")[0][0];
