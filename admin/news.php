@@ -29,7 +29,9 @@
                     <td> <input type="checkbox" name="del[]" value="<?= $row['id']; ?>"> </td>
                     <td> <input type="hidden" name="id[]" value="<?= $row['id']; ?>"> </td>
                 </tr>
-            <?php } ?>
+            <?php 
+        $start++;
+        } ?>
         </table>
         <div class="ct"><button>確定修改</button></div>
             </form>

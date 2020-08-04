@@ -9,7 +9,7 @@
         <td width="15%">狀態</td>
     </tr>
     <?php
-$rows=$Que->all(['sh'=>1]);
+$rows=$Que->all(['sh'=>1,'parent'=>0]);
 foreach($rows as $key =>$row){
     ?>
     <tr>
